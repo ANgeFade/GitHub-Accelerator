@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "GitHub加速器",
+  "version": "1.1.0",
+  "description": "自动重定向GitHub请求到镜像站点，提升访问速度。",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "storage",
+    "declarativeNetRequest",
+    "webNavigation"
+  ],
+  "host_permissions": [
+    "*://github.com/*",
+    "*://*.github.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16_disabled.png",
+      "48": "icons/icon48_disabled.png",
+      "128": "icons/icon128_disabled.png"
+    }
+  }
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>GitHub加速器设置</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>GitHub加速器</h1>
+    
+    <div class="switch-container">
+      <label class="switch">
+        <input type="checkbox" id="toggleEnabled">
+        <span class="slider"></span>
+      </label>
+      <span id="statusText">已禁用</span>
+    </div>
+    
+    <div class="settings-section">
+      <label for="mirrorUrl">镜像地址：</label>
+      <input type="text" id="mirrorUrl" placeholder="例如: kgithub.com">
+    </div>
+    
+    <div class="settings-section">
+      <label for="timeoutInput">超时设置(毫秒)：</label>
+      <input type="number" id="timeoutInput" min="500" max="10000" step="500">
+    </div>
+    
+    <div class="info">
+      <p>原始URL: <span id="originalUrl">github.com/...</span></p>
+      <p>镜像URL: <span id="mirrorResult">请先设置镜像地址</span></p>
+      <p class="stats">已成功加速：<span id="redirectCount">0</span> 次</p>
+    </div>
+    
+    <!-- 【重要】ID已修改，文本已更新 -->
+    <button id="testBtn">测试跳转</button>
+
+    <div class="footer">
+      <p>
+        由 <a href="https://github.com/ANgeFade" target="_blank" rel="noopener noreferrer">ANgeFade</a> 开发
+        <br>
+        遵循 <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank" rel="noopener noreferrer">GPLv3 协议</a> 开源
+      </p>
+    </div>
+
+  </div>
+  
+  <!-- 【重要】确保这里引用的文件名是正确的 -->
+  <script src="popup.js"></script>
+</body>
+</html>

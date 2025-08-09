@@ -1,0 +1,147 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+  margin: 0;
+  padding: 15px;
+  min-width: 300px;
+}
+
+.container {
+  max-width: 400px;
+}
+
+h1 {
+  color: #24292e;
+  font-size: 1.4em;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e1e4e8;
+  padding-bottom: 10px;
+}
+
+.switch-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 24px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #28a745;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+#statusText {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.settings-section {
+  margin: 15px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+input[type="text"], input[type="number"] {
+  padding: 8px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 0.95em;
+}
+
+.info {
+  background-color: #e9ecef;
+  padding: 12px;
+  border-radius: 5px;
+  margin: 20px 0;
+  font-size: 0.9em;
+}
+
+.info p {
+  margin: 5px 0;
+}
+
+#testBtn {
+  background-color: #0366d6;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+#testBtn:hover {
+  background-color: #035fc7;
+}
+/* 页脚样式 */
+.footer {
+  margin-top: 20px; /* 与上方按钮隔开一些距离 */
+  padding-top: 15px; /* 在顶部增加一点内边距 */
+  border-top: 1px solid #e1e4e8; /* 使用与h1下边框相同的颜色，保持风格统一 */
+  text-align: center; /* 文本居中 */
+  font-size: 12px; /* 字体小一点，不喧宾夺主 */
+  color: #6c757d; /* 使用柔和的灰色 */
+}
+
+.footer p {
+  margin: 0;
+  line-height: 1.6; /* 增加行高，让两行文字不挤在一起 */
+}
+
+.footer a {
+  color: #0366d6; /* 使用与按钮相同的蓝色系，保持风格统一 */
+  text-decoration: none; /* 去掉下划线，让界面更干净 */
+  font-weight: bold; /* 轻微加粗，突出链接 */
+}
+
+.footer a:hover {
+  text-decoration: underline; /* 鼠标悬浮时显示下划线，提供交互反馈 */
+}
