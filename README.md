@@ -9,9 +9,30 @@
 
 ---
 
+## **重要：免责声明与使用条款 / IMPORTANT: DISCLAIMER & TERMS OF USE**
+
+> **在下载、安装或使用本项目的任何部分（包括但不限于浏览器扩展、源代码和后端脚本）之前，您必须仔细阅读、完全理解并无条件同意以下所有条款。如果您不同意，请立即停止使用并删除本项目的所有相关文件。**
+>
+> **Before downloading, installing, or using any part of this project (including but not limited to the browser extension, source code, and backend scripts), you must read, fully understand, and unconditionally agree to all the following terms. If you do not agree, cease all use and delete all project-related files immediately.**
+>
+> 1.  **学术与技术研究目的 (For Academic and Technical Research Purposes Only):** 本项目旨在探讨和学习网络请求重定向与反向代理技术，是一个纯粹的技术性开源项目。**严禁**将本项目用于任何违反您所在国家或地区现行法律法规的用途。开发者不鼓励、不支持、不参与任何可能非法的网络活动。
+>
+> 2.  **用户的绝对责任 (User's Absolute Responsibility):** 您对使用本软件所引发的一切行为、风险和后果负有**100%的全部责任**。您是该行为的唯一执行者和责任人。您必须自行确保您的使用行为在您所在地的法律框架下是合法的。开发者对您因使用或滥用本软件而导致的任何民事纠纷、行政处罚、刑事追责或任何形式的损失，概不负责。
+>
+> 3.  **“原样”提供，无任何保证 (Provided "AS IS" Without Any Warranty):** 本项目按“原样”提供，不包含任何形式的明示或暗示的保证。这包括但不限于对项目的**稳定性、安全性、准确性、可靠性、可用性、不侵权性或适用于任何特定用途**的保证。您须自行承担使用本软件的所有风险。
+>
+> 4.  **责任豁免 (Exemption from Liability):** 在任何法律允许的最大范围内，开发者及其贡献者在任何情况下均不对因使用或无法使用本软件而造成的任何直接、间接、偶然、特殊、惩戒性或后果性损害承担责任。这包括但不限于数据丢失、利润损失、业务中断、服务器成本、法律费用或任何其他有形或无形的损失，即使已被告知存在此类损害的可能性。
+>
+> 5.  **自建服务与第三方风险 (Self-Hosting and Third-Party Risks):**
+>     -   当您使用脚本搭建自己的后端服务时，您将成为该服务的“**运营者**”，并对通过该服务的所有网络流量负全部法律责任。您必须负责服务器的安全、维护和合规运营。
+>     -   当您配置使用任何**第三方或公共镜像站点**（包括作者提供的演示站点）时，您应独立评估其安全性和合法性。开发者无法控制也无法为任何第三方服务的行为或内容负责。
+>
+> 6.  **条款的修改权与最终解释权 (Right to Modify and Final Interpretation):** 开发者保留随时修改本免责声明与使用条款的权利，恕不另行通知。本声明的最新版本将发布于本项目的GitHub页面。**您在声明修改后继续使用本项目的行为，即表示您已阅读、理解并接受修改后的全部条款。** 本免责声明的最终解释权归项目开发者所有。
+
+---
+
 ## 目录
 
-- [**重要：免责声明**](#重要免责声明--important-disclaimer)
 - [项目简介](#项目简介)
   - [核心架构：同级子域名代理](#核心架构同级子域名代理)
 - [功能特性](#功能特性)
@@ -24,36 +45,12 @@
 
 ---
 
-## **重要：免责声明 / IMPORTANT: DISCLAIMER**
-
-> **在使用本项目（包括浏览器扩展和后端脚本）前，您必须仔细阅读并完全同意以下所有条款。**
->
-> **Before using this project (including its browser extension and backend scripts), you must read carefully and fully agree to all the following terms.**
->
-> 1.  **目的与意图 (Purpose and Intent):** 本项目仅为技术研究与学习之目的，旨在为开发者和技术人员提供一个优化其访问GitHub网络效率的解决方案。严禁将本项目用于任何违反您所在地法律法规的用途。
->
-> 2.  **用户责任 (User's Responsibility):** 您对使用本软件所产生的一切行为和后果负全部责任。您必须确保您的使用行为符合您所在国家或地区的所有法律法规，包括但不限于网络管理规定、数据安全法规以及知识产权法。开发者对您因使用本软件而可能产生的任何法律风险或纠纷不承担任何责任。
->
-> 3.  **无担保 (No Warranties):** 本项目按“原样”提供，不提供任何形式的明示或暗示的保证，包括但不限于对稳定性、安全性、准确性、不间断服务或适用于特定用途的保证。
->
-> 4.  **责任限制 (Limitation of Liability):** 在任何情况下，开发者均不对因使用或无法使用本软件而导致的任何直接、间接、偶然、特殊、惩戒性或后果性损害承担任何责任（包括但不限于数据丢失、利润损失、业务中断或任何形式的法律追责），即使已被告知可能发生此类损害。
->
-> 5.  **第三方服务与自建风险 (Third-Party Services & Self-Hosting Risks):**
->     -   当您配置使用公共镜像站点时，您应自行评估其安全性与合法性。开发者不对任何第三方镜像站点的行为负责。
->     -   当您使用脚本搭建自己的后端服务时，您对您服务器的安全、维护、合规性及所有流经该服务器的数据和流量负全部责任。
->
-> 6.  **接受条款 (Acceptance of Terms):** 如果您不同意本免责声明中的任何条款，请立即停止使用并卸载本项目的所有组件。您的下载、安装或使用行为，均将被视为您已充分理解并自愿接受本声明的全部内容。
-
----
-
 ## 项目简介
 
 **GitHub Accelerator** 是一套完整的GitHub访问加速方案。它由两部分组成：
 
-1.  **浏览器扩展 (前端)**：一个基于 Chrome Manifest V3 开发的高效扩展。它通过 `declarativeNetRequest` API，在网络请求层面以极低的性能开销，将所有对GitHub及其相关域名的访问无缝重定向到您配置的镜像地址。
-2.  **反向代理后端 (可选)**：一个配套的Go语言反向代理服务。我们提供了一个自动化部署脚本 (`install_proxy.sh`)，让您可以轻松在自己的服务器上搭建一个私有的、高性能的GitHub镜像服务。
-
-您可以只使用**浏览器扩展**并配置一个公开的镜像地址，也可以通过**部署自己的后端**来获得最稳定、最可控的加速体验。
+1.  **浏览器扩展 (前端)**：一个基于 Chrome Manifest V3 开发的高效扩展。
+2.  **反向代理后端 (可选)**：一个配套的Go语言反向代理服务，并提供一键化部署脚本。
 
 ### 核心架构：同级子域名代理
 
@@ -63,144 +60,98 @@
 - `github.com`  -> `gh.mydomain.com`
 - `avatars.githubusercontent.com` -> `avatars-githubusercontent-com.mydomain.com`
 - `raw.githubusercontent.com` -> `raw-githubusercontent-com.mydomain.com`
-- ...依此类推
-
-这种架构逻辑清晰，避免了多层子域名带来的潜在问题，确保了所有资源都能被准确地代理和加速。
 
 ## 功能特性
 
--   **高效重定向**：基于Manifest V3的`declarativeNetRequest`，在浏览器核心网络层处理请求，比传统方式更快、更安全。
--   **全面的域名覆盖**：通过同级子域名映射，不仅加速 `github.com`，还完整覆盖所有关键域名，确保页面样式、头像、文件下载、API调用等获得一致的加速体验。
--   **一键化后端部署**：提供自动化Shell脚本，可在任何Linux服务器上一键部署高性能Go语言反向代理后端，无需手动配置环境。
--   **灵活控制**：通过扩展弹出窗口，可以轻松启用/禁用加速功能，并随时更换镜像地址的**根域名**。
--   **智能状态显示**：图标颜色清晰指示插件状态；弹出窗口能智能显示当前页面的原始URL和镜像URL。
--   **隐私安全**：扩展仅在本地存储配置，不收集任何用户数据。自建后端完全由您掌控。
+-   **高效重定向**：基于Manifest V3的`declarativeNetRequest`，性能开销极低。
+-   **全面的域名覆盖**：确保页面样式、头像、文件下载等获得一致的加速体验。
+-   **一键化后端部署**：提供自动化Shell脚本，轻松部署私有后端。
+-   **灵活控制与智能显示**：轻松启用/禁用，更换镜像地址，并智能显示URL对应关系。
+-   **隐私安全**：扩展不收集用户数据，自建后端完全由您掌控。
 
 ## 第一部分：浏览器扩展使用指南
-
-如果您只想使用公开的镜像站点进行加速，请遵循此部分。
 
 ### 安装扩展
 
 目前本扩展尚未发布到 Chrome 网上应用店，您可以通过以下步骤手动加载：
 
-1.  **下载代码**:
-    -   通过`git clone https://github.com/ANgeFade/GitHub-Accelerator.git`克隆本仓库。
-    -   或者直接下载ZIP包并解压。
-
-2.  **打开Chrome扩展管理页面**:
-    -   在地址栏输入 `chrome://extensions` 并回车。
-
-3.  **启用开发者模式**:
-    -   在扩展管理页面的右上角，打开“开发者模式”开关。
-
-4.  **加载扩展**:
-    -   点击左上角的“加载已解压的扩展程序”按钮。
-    -   在弹出的文件选择框中，选择您刚刚下载并解压的 `GitHub-Accelerator` 文件夹。
-
-5.  **完成**:
-    -   扩展图标将出现在浏览器工具栏。建议将其固定，方便随时访问。
+1.  **下载代码**: `git clone https://github.com/ANgeFade/GitHub-Accelerator.git` 或下载ZIP包。
+2.  **打开Chrome扩展管理页面**: 在地址栏输入 `chrome://extensions`。
+3.  **启用开发者模式**: 在页面右上角打开开关。
+4.  **加载扩展**: 点击“加载已解压的扩展程序”，选择项目文件夹。
 
 ### 配置与使用
 
-1.  **点击图标**：点击浏览器工具栏上的 **GitHub 加速器** 图标，打开设置弹窗。
-2.  **启用加速**：点击“开关”按钮，使其变为“已启用”状态。
+1.  **点击图标**，打开设置弹窗。
+2.  **启用加速**，点击开关。
 3.  **设置镜像地址**：
     -   在“镜像地址”输入框中，填入一个**基础域名**（根域名）。
-    -   **重要**：扩展会自动根据访问的站点（如`github.com`或`avatars.githubusercontent.com`）为您拼接正确的前缀。您只需填写根域名部分。
-    -   例如，使用公开镜像站，您可以填写：`kgithub.com`
-4.  **测试跳转**：点击“测试跳转”按钮，将尝试在新标签页中打开GitHub。如果配置正确，页面将自动跳转到镜像后的地址（例如 `gh.kgithub.com`）。
+    -   例如，您可以使用 `lusiya.dpdns.org`。
+    -   **(注意: 此公共镜像由作者提供，仅作演示和测试用途，不保证其稳定性、安全性或长期可用性，随时可能失效。强烈建议您搭建自己的后端服务以获得最佳体验。)**
+4.  **测试跳转**，验证配置。
 
 ## 第二部分：自建加速后端指南
 
-如果您拥有自己的服务器和域名，并希望获得最稳定、私有的加速服务，请遵循此部分。
-
-### 适用场景
-
--   您拥有一台可以访问外网的Linux服务器（VPS）。
--   您拥有一个自己的域名。
--   您追求极致的稳定性和隐私，不希望依赖第三方公共镜像。
-
 ### 准备工作
 
-1.  **一台Linux服务器**：确保拥有`root`权限。
-2.  **一个域名**：例如 `mydomain.com`。
+1.  一台拥有`root`权限的Linux服务器。
+2.  一个您自己的域名（例如 `mydomain.com`）。
 
 ### 一键部署
 
-1.  登录到您的Linux服务器。
-2.  下载并执行安装脚本：
+1.  登录服务器，执行以下命令：
     ```bash
     wget -O install_proxy.sh https://raw.githubusercontent.com/ANgeFade/GitHub-Accelerator/main/install_proxy.sh
     bash install_proxy.sh
     ```
-3.  根据脚本提示进行交互式配置：
-    -   **选择语言**
-    -   **输入安装目录** (默认为 `/opt/github-proxy`)
-    -   **输入代理端口** (默认为 `11258`)
-    -   **输入您的加速域名**: 这是**最关键的一步**。请填写您准备用于加速的**根域名**。例如，如果您的域名是 `mydomain.com`，您就在此输入 `mydomain.com`。
-
-脚本将自动完成环境检查、Go程序编译、以及`systemd`服务的创建与启动。
+2.  根据提示输入您的**根域名**（例如 `mydomain.com`）。
 
 ### 配置DNS解析（关键步骤）
 
-**这是确保自建服务正常工作的核心环节。** 您需要为所有被代理的域名创建指向您服务器IP的A记录。
+登录您的域名提供商，为以下**所有**主机记录添加A记录，指向您的服务器IP地址。
 
-登录您的域名提供商（如Cloudflare, GoDaddy, 阿里云等）的DNS管理面板，添加以下**所有A记录**：
-
-| 类型 | 主机记录 (Name)                 | 指向 (Value/Content) |
-| :--- | :-------------------------------- | :--------------------- |
-| A    | `gh`                              | `你的服务器公网IP地址`   |
-| A    | `avatars-githubusercontent-com`   | `你的服务器公网IP地址`   |
-| A    | `github-githubassets-com`         | `你的服务器公网IP地址`   |
-| A    | `collector-github-com`            | `你的服务器公网IP地址`   |
-| A    | `api-github-com`                  | `你的服务器公网IP地址`   |
-| A    | `raw-githubusercontent-com`       | `你的服务器公网IP地址`   |
-| A    | `gist-githubusercontent-com`      | `你的服务器公网IP地址`   |
-| A    | `github-io`                       | `你的服务器公网IP地址`   |
-| A    | `assets-cdn-github-com`           | `你的服务器公网IP地址`   |
-| A    | `cdn-jsdelivr-net`                 | `你的服务器公网IP地址`   |
-| A    | `securitylab-github-com`          | `你的服务器公网IP地址`   |
-| A    | `www-githubstatus-com`            | `你的服务器公网IP地址`   |
-| A    | `npmjs-com`                       | `你的服务器公网IP地址`   |
-| A    | `git-lfs-github-com`              | `你的服务器公网IP地址`   |
-| A    | `githubusercontent-com`           | `你的服务器公网IP地址`   |
-| A    | `github-global-ssl-fastly-net`    | `你的服务器公网IP地址`   |
-| A    | `api-npms-io`                     | `你的服务器公网IP地址`   |
-| A    | `github-community`                | `你的服务器公网IP地址`   |
-
-**注意：** 必须添加**全部**记录，否则将导致GitHub页面样式丢失、头像或文件无法加载等问题。
-
-### 在扩展中使用自建后端
-
-回到您的浏览器，打开 GitHub 加速器扩展的设置弹窗：
--   在“镜像地址”输入框中，填入您刚刚配置的**根域名**，例如：`mydomain.com`
--   现在，所有GitHub相关的请求都将通过您自己的服务器进行加速！
+| 主机记录 (Name)                 |
+| :-------------------------------- |
+| `gh`                              |
+| `avatars-githubusercontent-com`   |
+| `github-githubassets-com`         |
+| `collector-github-com`            |
+| `api-github-com`                  |
+| `raw-githubusercontent-com`       |
+| `gist-githubusercontent-com`      |
+| `github-io`                       |
+| `assets-cdn-github-com`           |
+| `cdn-jsdelivr-net`                 |
+| `securitylab-github-com`          |
+| `www-githubstatus-com`            |
+| `npmjs-com`                       |
+| `git-lfs-github-com`              |
+| `githubusercontent-com`           |
+| `github-global-ssl-fastly-net`    |
+| `api-npms-io`                     |
+| `github-community`                |
 
 ### 后端卸载
 
-如需移除服务器上的后端服务，执行以下命令：
-```bash
-bash install_proxy.sh uninstall
-```
+如需移除服务，执行：`bash install_proxy.sh uninstall`
 
 ## 常见问题 (FAQ)
 
-**Q: 为什么页面能打开，但样式、图片都加载不出来？**
-**A:** 这几乎总是由于**DNS配置不完整**导致的。请仔细核对[#配置DNS解析（关键步骤）](#配置dns解析关键步骤)章节，确保您已为您域名的**所有**必需子域名都添加了A记录。
+**Q: 为什么页面样式、图片加载不出来？**
+**A:** **DNS配置不完整**。请仔细核对[#配置DNS解析（关键步骤）](#配置dns解析关键步骤)，确保所有必需的子域名A记录都已正确添加。
 
 **Q: 我应该在扩展里填写 `gh.mydomain.com` 还是 `mydomain.com`？**
-**A:** **始终填写根域名**，即 `mydomain.com`。扩展程序会根据您正在访问的原始网站，自动为您拼接正确的前缀（如`gh.`或`avatars-githubusercontent-com.`）。
+**A:** **始终填写根域名**，例如 `mydomain.com` 或 `lusiya.dpdns.org`。
 
 ## 鸣谢与致敬
 
 首先，感谢所有开源GitHub镜像站点的提供者，他们的工作是本项目灵感的来源。
 
-同时，这里要特别致敬人与AI协同工作的全新开发模式。本项目的核心架构与代码由开发者 **ANgeFade** 设计与主导，并在开发过程中深度借助了 **Google Gemini Pro** 的强大能力进行逻辑精炼、方案验证和高质量代码生成。这不仅极大地提升了开发效率，也展现了当开发者的清晰愿景与顶尖AI的执行能力相结合时，所能迸发出的巨大潜力。本项目正是这种高效协作模式下的一个绝佳实践。
+同时，这里要特别致敬人与AI协同工作的全新开发模式。本项目的核心架构与代码由开发者 **ANgeFade** 设计与主导，并在开发过程中深度借助了 **Google Gemini Pro** 的强大能力进行逻辑精炼、方案验证和高质量代码生成。这不仅极大地提升了开发效率，也展现了当开发者的清晰愿景与顶尖AI的执行能力相结合时，所能迸发出的巨大潜力。
 
 ## 贡献
 
-欢迎任何形式的贡献，无论是提交Issue、发起Pull Request还是提出改进建议。请遵循项目的GPLv3许可证。
+欢迎任何形式的贡献。所有贡献行为都意味着您已阅读并同意本项目的[免责声明与使用条款](#重要免责声明--important-disclaimer)。
 
 ## 许可证
 
