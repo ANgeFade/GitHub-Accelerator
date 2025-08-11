@@ -7,8 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const originalUrlSpan = document.getElementById('originalUrl');
   const mirrorResultSpan = document.getElementById('mirrorResult');
   const redirectCountSpan = document.getElementById('redirectCount');
-  const testBtn = document.getElementById('testBtn'); // 【修改点】ID已改回 testBtn
+  const testBtn = document.getElementById('testBtn');
 
+  // 注意：这里用 let 而不是 const，因为 settings 的属性会被修改
   const settings = {};
 
   // --- Functions ---
@@ -17,12 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
   function loadSettings() {
     chrome.storage.sync.get(['enabled', 'mirrorUrl', 'timeout', 'redirectCount'], (data) => {
       settings.enabled = data.enabled || false;
-      settings.mirrorUrl = data.mirrorUrl || '';
+      // *** 核心修改点：在这里设置默认的镜像地址 ***
+      settings.mirrorUrl = data.mirrorUrl || 'lusiya.dpdns.org'; 
       settings.timeout = data.timeout || 3000;
       settings.redirectCount = data.redirectCount || 0;
       
       toggleEnabled.checked = settings.enabled;
-      mirrorUrlInput.value = settings.mirrorUrl;
+      mirrorUrlInput.value = settings.mirrorUrl; // 这里会使用上面设置好的 settings.mirrorUrl 值
       timeoutInput.value = settings.timeout;
       redirectCountSpan.textContent = settings.redirectCount;
       updateStatusText();
@@ -45,7 +47,20 @@ document.addEventListener('DOMContentLoaded', () => {
             originalUrlSpan.textContent = `${currentUrl.hostname}${shortPath}`;
 
             if (mirrorHost) {
-                mirrorResultSpan.textContent = `${mirrorHost}${shortPath}`;
+                // 如果当前页面是 GitHub 域名，且有设置镜像地址，则显示预览
+                // 假设 github.com -> gh.lusiya.dpdns.org
+                let previewHost = mirrorHost;
+                if (currentUrl.hostname === 'github.com') { // 专门针对 github.com 做预览
+                    previewHost = `gh.${mirrorHost}`; 
+                } else if (currentUrls.hostname.includes('githubusercontent.com')) { // 对 usercontent 域名做预览
+                    const domainParts = currentUrl.hostname.split('.');
+                    // 假设 `raw.githubusercontent.com` -> `raw-githubusercontent-com`
+                    const transformedDomain = domainParts.join('-').replace(/\./g, '-');
+                    previewHost = `${transformedDomain}.${mirrorHost}`;
+                }
+                // 这里的预览功能为了简化，不完全模拟所有 `proxyDomainMap` 中的复杂逻辑
+                // 它只是一个指示，说明会重定向到您的镜像服务上
+                mirrorResultSpan.textContent = `${previewHost}${shortPath}`;
             } else {
                 mirrorResultSpan.textContent = '请先设置镜像地址';
             }
@@ -83,11 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 【修改点】监听 testBtn 的点击事件
   testBtn.addEventListener('click', () => {
-    // 这行代码会尝试在新标签页中打开你的 GitHub 主页
-    // 如果插件的重定向规则生效，浏览器会自动把它重定向到镜像站点
-    // 从而完美地测试了核心功能
     chrome.tabs.create({ url: 'https://github.com/ANgeFade' });
   });
 
