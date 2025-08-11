@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "GitHub加速器",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "自动重定向GitHub请求及相关资源到镜像站点，显著提升访问速度。",
   "icons": {
     "16": "icons/icon16.png",
@@ -14,18 +14,24 @@
     "webNavigation"
   ],
   "host_permissions": [
-    "*://*.github.com/*",          // 包含了 github.com, api.github.com, git-lfs.github.com, securitylab.github.com 等
+    "<all_urls>", 
+    
+    // 【核心修复】上面的 "<all_urls>" 授予了插件读取任意页面URL的权限，
+    // 这样它才能在跳转到镜像站后，依然能获取到URL并正确显示。
+    // 为了更精细的控制和清晰的意图，原有的权限列表依然可以保留。
+    
+    "*://*.github.com/*",
     "*://github.io/*",
-    "*://*.githubusercontent.com/*", // 包含了 avatars.githubusercontent.com, raw.githubusercontent.com, gist.githubusercontent.com, githubusercontent.com 等
+    "*://*.githubusercontent.com/*",
     "*://github.githubassets.com/*",
     "*://collector.github.com/*",
     "*://assets-cdn.github.com/*",
-    "*://cdn.jsdelivr.net/*",      // 常用 CDN，有时也加速 GitHub Pages 中的资源
+    "*://cdn.jsdelivr.net/*",
     "*://www.githubstatus.com/*",
-    "*://npmjs.com/*",             // 与 GitHub 生态相关的 npmjs.com
-    "*://github.global.ssl.fastly.net/*", // GitHub 的 CDN
-    "*://api.npms.io/*",           // 与 npmjs 相关的 API
-    "*://github.community/*"       // GitHub 社区论坛
+    "*://npmjs.com/*",
+    "*://github.global.ssl.fastly.net/*",
+    "*://api.npms.io/*",
+    "*://github.community/*"
   ],
   "background": {
     "service_worker": "background.js"

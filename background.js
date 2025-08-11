@@ -1,166 +1,150 @@
-// 全局设置变量，用于在内存中缓存状态
-let currentSettings = {
+// 【新版 background.js】
+
+let settings = {
     enabled: false,
-    mirrorUrl: '',
-    redirectCount: 0
+    mirrorUrl: 'lusiya.dpdns.org'
 };
 
-// 【新增】后端服务器支持的域名映射配置
-// 键为原始域名，值为镜像前缀
-const proxyDomainMap = {
-    "github.com":                    "gh.",
-    "avatars.githubusercontent.com": "avatars-githubusercontent-com.",
-    "github.githubassets.com":       "github-githubassets-com.",
-    "collector.github.com":          "collector-github-com.",
-    "api.github.com":                "api-github-com.",
-    "raw.githubusercontent.com":     "raw-githubusercontent-com.",
-    "gist.githubusercontent.com":    "gist-githubusercontent-com.",
-    "github.io":                     "github-io.",
-    "assets-cdn.github.com":         "assets-cdn-github-com.",
-    "cdn.jsdelivr.net":              "cdn.jsdelivr-net.",
-    "securitylab.github.com":        "securitylab-github-com.", // 保持与 Go 代码一致，即使它看起来不太规范
-    "www.githubstatus.com":          "www-githubstatus-com.",
-    "npmjs.com":                     "npmjs-com.",
-    "git-lfs.github.com":            "git-lfs-github-com.",
-    "githubusercontent.com":         "githubusercontent-com.",
-    "github.global.ssl.fastly.net":  "github-global-ssl-fastly-net.",
-    "api.npms.io":                   "api-npms-io.",
-    "github.community":              "github-community."
+const domainMap = {
+    "github.com": "gh",
+    "github.io": "github-io",
+    "github.community": "github-community",
+    "raw.githubusercontent.com": "raw-githubusercontent-com",
+    "avatars.githubusercontent.com": "avatars-githubusercontent-com",
+    "assets-cdn.github.com": "assets-cdn-github-com",
+    "github.githubassets.com": "github-githubassets-com",
+    "cdn.jsdelivr.net": "cdn-jsdelivr-net",
+    "npmjs.com": "npmjs-com",
+    "github.global.ssl.fastly.net": "github-global-ssl-fastly-net",
+    "api.npms.io": "api-npms-io"
 };
 
-// 【新增】生成所有重定向规则的ID，用于批量添加和移除
-const ALL_PROXY_RULE_IDS = Object.keys(proxyDomainMap).map((_, i) => i + 1);
-
-// --- 初始化 ---
-chrome.runtime.onStartup.addListener(initialize);
-chrome.runtime.onInstalled.addListener(initialize);
-
-function initialize() {
-    chrome.storage.sync.get(['enabled', 'mirrorUrl', 'redirectCount'], (result) => {
-        currentSettings.enabled = result.enabled || false;
-        currentSettings.mirrorUrl = result.mirrorUrl || '';
-        currentSettings.redirectCount = result.redirectCount || 0;
-        
-        console.log('GitHub Accelerator Initialized/Updated. Current settings:', currentSettings);
-        
-        updateRules(); // 根据加载的设置更新规则
-        updateIcon();  // 根据加载的设置更新图标
+function loadSettingsAndApply() {
+    chrome.storage.sync.get(['enabled', 'mirrorUrl'], (data) => {
+        settings.enabled = data.enabled ?? false;
+        settings.mirrorUrl = data.mirrorUrl || 'lusiya.dpdns.org';
+        updateIcon();
+        updateDynamicRules();
     });
 }
 
-// --- 核心功能 ---
-// 1. 更新网络重定向规则
-function updateRules() {
-    const rulesToAdd = [];
+function updateIcon() {
+    const path = settings.enabled ? {
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+    } : {
+        "16": "icons/icon16_disabled.png",
+        "48": "icons/icon48_disabled.png",
+        "128": "icons/icon128_disabled.png"
+    };
+    chrome.action.setIcon({ path: path });
+}
 
-    // 只有当扩展启用且镜像URL有效时才添加规则
-    if (currentSettings.enabled && currentSettings.mirrorUrl && currentSettings.mirrorUrl.trim() !== '') {
-        let ruleId = 1;
-        for (const originalDomain in proxyDomainMap) {
-            const proxyPrefix = proxyDomainMap[originalDomain];
-            // 目标重定向主机名：组合 "代理前缀" + "用户设置的镜像URL"
-            const targetRedirectionHost = proxyPrefix + currentSettings.mirrorUrl; 
+async function updateDynamicRules() {
+    if (!chrome.declarativeNetRequest) return;
 
-            rulesToAdd.push({
-                id: ruleId++, // 唯一的规则ID
-                priority: 1, // 优先级
+    const allRules = await chrome.declarativeNetRequest.getDynamicRules();
+    const ruleIds = allRules.map(rule => rule.id);
+    const rulesToRemove = { removeRuleIds: ruleIds };
+    
+    await chrome.declarativeNetRequest.updateDynamicRules(rulesToRemove);
+
+    if (settings.enabled && settings.mirrorUrl) {
+        let newRules = [];
+        let idCounter = 1;
+        for (const [originalDomain, subPrefix] of Object.entries(domainMap)) {
+            newRules.push({
+                id: idCounter++,
+                priority: 1,
                 action: {
                     type: 'redirect',
                     redirect: {
-                        scheme: 'https', // 强制使用 HTTPS
-                        host: targetRedirectionHost // 重定向到计算出的目标主机
+                        transform: {
+                            scheme: 'https',
+                            host: `${subPrefix}.${settings.mirrorUrl}`
+                        }
                     }
                 },
                 condition: {
-                    requestDomains: [originalDomain], // 匹配原始域名
-                    resourceTypes: ['main_frame', 'sub_frame', 'xmlhttprequest', 'script', 'image', 'stylesheet', 'object', 'other']
+                    requestDomains: [originalDomain],
+                    resourceTypes: ["main_frame", "sub_frame", "stylesheet", "script", "image", "font", "object", "xmlhttprequest", "ping", "csp_report", "media", "websocket", "other"]
                 }
             });
         }
-        console.log(`Prepared ${rulesToAdd.length} redirection rules for various GitHub domains.`);
-    } else {
-        console.log('Extension disabled, mirror URL not set, or mirror URL is empty. All dynamic rules will be removed.');
+        await chrome.declarativeNetRequest.updateDynamicRules({ addRules: newRules });
     }
-
-    // 无论是否添加新规则，都先移除所有旧的动态规则，再添加新的
-    // 这样确保了规则的原子性更新，避免残留旧规则或规则冲突
-    chrome.declarativeNetRequest.updateDynamicRules({
-        removeRuleIds: ALL_PROXY_RULE_IDS, // 移除所有可能存在的规则ID
-        addRules: rulesToAdd
-    }, () => {
-        if (chrome.runtime.lastError) {
-            console.error('Error updating rules:', chrome.runtime.lastError.message);
-        } else {
-            console.log('Dynamic redirection rules updated successfully.');
-        }
-    });
 }
 
-// 2. 更新浏览器动作图标 (逻辑不变)
-function updateIcon() {
-    const isActive = currentSettings.enabled && currentSettings.mirrorUrl && currentSettings.mirrorUrl.trim() !== '';
-    const iconPaths = {
-        "16": isActive ? "icons/icon16.png" : "icons/icon16_disabled.png",
-        "48": isActive ? "icons/icon48.png" : "icons/icon48_disabled.png",
-        "128": isActive ? "icons/icon128.png" : "icons/icon128_disabled.png"
-    };
-    chrome.action.setIcon({ path: iconPaths });
-}
+// 【核心新增1】: 监听导航事件，记录跳转信息
+chrome.webNavigation.onBeforeNavigate.addListener(details => {
+    if (!settings.enabled || !settings.mirrorUrl) return;
 
-// 3. 监听重定向成功事件以更新计数器
-chrome.webNavigation.onCompleted.addListener(details => {
-    // 确保是主框架导航，并且URL的hostname符合镜像的模式 (e.g., gh.kgithub.com, avatars-githubusercontent-com.kgithub.com)
-    if (details.frameId === 0 && currentSettings.mirrorUrl && currentSettings.mirrorUrl.trim() !== '') {
-        try {
-            const url = new URL(details.url);
-            // 检查当前URL的主机名是否以用户设置的镜像URL结尾
-            if (url.hostname.endsWith(currentSettings.mirrorUrl)) {
-                // 进一步检查主机名是否与任何一个预设的代理前缀匹配
-                const foundMatch = Object.values(proxyDomainMap).some(prefix => {
-                    return url.hostname === (prefix + currentSettings.mirrorUrl);
-                });
+    try {
+        const url = new URL(details.url);
+        const originalDomain = url.hostname;
+        const subPrefix = domainMap[originalDomain];
 
-                if (foundMatch) {
-                    const newCount = (currentSettings.redirectCount || 0) + 1;
-                    currentSettings.redirectCount = newCount;
-                    chrome.storage.sync.set({ redirectCount: newCount });
+        if (subPrefix) {
+            const mirrorHost = `${subPrefix}.${settings.mirrorUrl}`;
+            const mirrorUrl = new URL(url);
+            mirrorUrl.hostname = mirrorHost;
+            
+            // 存入本次跳转的“事实”
+            const tabIdStr = details.tabId.toString();
+            chrome.storage.local.set({
+                [tabIdStr]: {
+                    originalUrl: details.url,
+                    mirrorUrl: mirrorUrl.href,
+                    timestamp: Date.now() // 用于清理旧数据
                 }
-            }
-        } catch (e) {
-            console.warn("Could not parse URL for stats:", details.url, e);
+            });
         }
-    }
-}, { url: [{ schemes: ["https", "http"] }] }); // 监听所有HTTP/HTTPS导航
-
-// --- 监听器 ---
-// 监听来自 popup 的存储变化 (逻辑不变)
-chrome.storage.onChanged.addListener((changes, area) => {
-    if (area !== 'sync') return;
-
-    let needsRuleUpdate = false;
-    let needsIconUpdate = false;
-
-    if (changes.enabled !== undefined) {
-        currentSettings.enabled = changes.enabled.newValue;
-        needsRuleUpdate = true;
-        needsIconUpdate = true;
-    }
-    if (changes.mirrorUrl !== undefined) {
-        currentSettings.mirrorUrl = changes.mirrorUrl.newValue;
-        // 只有当 mirrorUrl 实际改变时才触发更新，避免不必要的规则刷新
-        if (changes.mirrorUrl.oldValue !== changes.mirrorUrl.newValue) {
-            needsRuleUpdate = true;
-            needsIconUpdate = true;
-        }
-    }
-    if (changes.redirectCount !== undefined) {
-        currentSettings.redirectCount = changes.redirectCount.newValue;
-    }
-
-    if (needsRuleUpdate) {
-        updateRules();
-    }
-    if (needsIconUpdate) {
-        updateIcon();
+    } catch (e) {
+        console.error("Error processing navigation:", e);
     }
 });
+
+// 【核心新增2】: 监听标签页关闭，清理记录
+chrome.tabs.onRemoved.addListener((tabId) => {
+    chrome.storage.local.remove(tabId.toString());
+});
+
+// 【核心新增3】: 监听标签页更新，如果用户导航到其他地方，也清理记录
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    // 当页面加载完成或URL变化时
+    if (changeInfo.status === 'complete' || changeInfo.url) {
+        const tabIdStr = tabId.toString();
+        chrome.storage.local.get(tabIdStr, (data) => {
+            if (data[tabIdStr] && tab.url !== data[tabIdStr].mirrorUrl) {
+                // 如果当前URL不是我们记录的镜像URL，说明用户已离开，清理记录
+                chrome.storage.local.remove(tabIdStr);
+            }
+        });
+    }
+});
+
+
+// --- Initial Setup ---
+chrome.runtime.onInstalled.addListener(() => {
+    loadSettingsAndApply();
+    chrome.storage.sync.set({ redirectCount: 0 });
+});
+
+chrome.runtime.onStartup.addListener(() => {
+    loadSettingsAndApply();
+});
+
+chrome.storage.onChanged.addListener((changes, area) => {
+    // 监听设置变化以实时更新
+    if (area === 'sync' && (changes.enabled || changes.mirrorUrl)) {
+        loadSettingsAndApply();
+    }
+    // 更新加速计数
+    if (area === 'sync' && changes.redirectCount) {
+        chrome.action.setBadgeText({ text: changes.redirectCount.newValue.toString() });
+        chrome.action.setBadgeBackgroundColor({ color: '#28a745' });
+    }
+});
+
+loadSettingsAndApply();

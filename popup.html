@@ -22,19 +22,15 @@
       <input type="text" id="mirrorUrl" placeholder="例如: kgithub.com">
     </div>
     
-    <div class="settings-section">
-      <label for="timeoutInput">超时设置(毫秒)：</label>
-      <input type="number" id="timeoutInput" min="500" max="10000" step="500">
-    </div>
+    <!-- 【优化】移除了未被使用的“超时设置”输入框，使界面更简洁 -->
     
     <div class="info">
-      <p>原始URL: <span id="originalUrl">github.com/...</span></p>
-      <p>镜像URL: <span id="mirrorResult">请先设置镜像地址</span></p>
+      <p>原始URL: <span id="originalUrl">...</span></p>
+      <p>镜像URL: <span id="mirrorResult">...</span></p>
       <p class="stats">已成功加速：<span id="redirectCount">0</span> 次</p>
     </div>
     
-    <!-- 【重要】ID已修改，文本已更新 -->
-    <button id="testBtn">测试跳转</button>
+    <button id="testBtn">测试跳转 (打开GitHub)</button>
 
     <div class="footer">
       <p>
@@ -46,7 +42,6 @@
 
   </div>
   
-  <!-- 【重要】确保这里引用的文件名是正确的 -->
   <script src="popup.js"></script>
 </body>
 </html>
