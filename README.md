@@ -104,7 +104,7 @@
     wget -O install_proxy.sh https://raw.githubusercontent.com/ANgeFade/GitHub-Accelerator/main/install_proxy.sh
     bash install_proxy.sh
     ```
-2.  根据提示输入您的**根域名**（例如 `mydomain.com`）。
+2.  根据提示输入您的**根域名**（例如 `mydomain.com`,也可使用二级域名）。
 
 ### 配置DNS解析（关键步骤）
 
