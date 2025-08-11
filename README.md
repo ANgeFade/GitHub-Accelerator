@@ -3,6 +3,7 @@
 [![版本](https://img.shields.io/badge/version-1.1.2-blue.svg)](https://github.com/ANgeFade/GitHub-Accelerator)
 [![许可证](https://img.shields.io/badge/license-GPL--3.0-brightgreen.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![开发者](https://img.shields.io/badge/Author-ANgeFade-orange.svg)](https://github.com/ANgeFade)
+[![Website](https://img.shields.io/badge/Website-lusiya.dpdns.org-brightgreen.svg)](https://lusiya.dpdns.org)
 [![AI赋能](https://img.shields.io/badge/AI--Powered-by%20Gemini-blueviolet.svg)](https://deepmind.google/technologies/gemini/)
 
 一套强大、灵活的GitHub完整加速解决方案，包含**浏览器扩展**和**一键化反向代理后端**。本项目由作者精心设计，并与先进的AI模型协作开发，旨在彻底解决GitHub访问速度慢、资源加载失败等问题。
@@ -34,7 +35,6 @@
 ## 目录
 
 - [项目简介](#项目简介)
-  - [核心架构：同级子域名代理](#核心架构同级子域名代理)
 - [功能特性](#功能特性)
 - [第一部分：浏览器扩展使用指南](#第一部分浏览器扩展使用指南)
 - [第二部分：自建加速后端指南](#第二部分自建加速后端指南)
@@ -86,8 +86,8 @@
 2.  **启用加速**，点击开关。
 3.  **设置镜像地址**：
     -   在“镜像地址”输入框中，填入一个**基础域名**（根域名）。
-    -   例如，您可以使用 `lusiya.dpdns.org`。
-    -   **(注意: 此公共镜像由作者提供，仅作演示和测试用途，不保证其稳定性、安全性或长期可用性，随时可能失效。强烈建议您搭建自己的后端服务以获得最佳体验。)**
+    -   例如，您可以使用项目的官方演示站： `lusiya.dpdns.org`。
+    -   **(注意: 此公共镜像仅作演示和测试用途，不保证其稳定性、安全性或长期可用性，随时可能失效。强烈建议您搭建自己的后端服务以获得最佳体验。)**
 4.  **测试跳转**，验证配置。
 
 ## 第二部分：自建加速后端指南
